@@ -20,6 +20,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        _playerJumping.Jump();
+        //_playerJumping.Jump();
     }
 }

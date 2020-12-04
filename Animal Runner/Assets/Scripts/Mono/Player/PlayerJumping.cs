@@ -18,17 +18,65 @@ public class PlayerJumping : MonoBehaviour
     public float jumpTime;
     private bool _isJumping;
 
+
+    #region TestRay
+    public float MovingForce;
+    Vector2 StartPoint;
+    Vector2 Origin;
+    public int NoOfRays = 10;
+    int i;
+    RaycastHit2D HitInfo;
+    float LengthOfRay, DistanceBetweenRays;
+    float margin = 0.035f;
+    Ray ray;
+    BoxCollider2D coll;
+    #endregion
+
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _feetPos = FindObjectOfType<FeetPosition>().transform;
+
+        coll = GetComponent<BoxCollider2D>();
+        LengthOfRay = .65f;
+    }
+
+    private void Update()
+    {
+        StartPoint = new Vector2(coll.bounds.min.x + margin, transform.position.y);
+        Jump();
+    }
+
+    bool IsCollidingVertically()
+    {
+        int layerMaskInt = 1 << LayerMask.NameToLayer("Ground");
+        _whatIsGround = layerMaskInt;
+        Origin = StartPoint;
+        DistanceBetweenRays = (coll.bounds.size.x - 2 * margin) / (NoOfRays - 1);
+        for (i = 0; i < NoOfRays; i++)
+        {
+            //Draw ray on screen to see visually. Remember visual length is not actual length.
+            Debug.DrawRay(Origin, new Vector2(0, -LengthOfRay), Color.yellow);
+            HitInfo = Physics2D.Raycast(Origin, Vector2.down, LengthOfRay, _whatIsGround);
+            if (HitInfo.collider != null)
+            {
+                //print("Collided With " + HitInfo.collider.gameObject.name);
+                print("Grounded!");
+                return true;
+            }
+            Origin += new Vector2(DistanceBetweenRays, 0);
+        }
+        print("Note grounded!");
+        return false;
     }
 
     public void Jump()
     {
-        int layerMaskInt = 1 << LayerMask.NameToLayer("Ground");
-        _whatIsGround = layerMaskInt;
-        _isGrounded = Physics2D.OverlapCircle(_feetPos.position, checkRadius, _whatIsGround);
+        //int layerMaskInt = 1 << LayerMask.NameToLayer("Ground");
+        //_whatIsGround = layerMaskInt;
+        //_isGrounded = Physics2D.OverlapCircle(_feetPos.position, checkRadius, _whatIsGround);
+        _isGrounded = IsCollidingVertically();
 
         if (_isGrounded == true && Input.GetMouseButtonDown(0))
         {
