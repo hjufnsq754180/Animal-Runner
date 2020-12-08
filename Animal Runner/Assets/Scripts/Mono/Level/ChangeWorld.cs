@@ -7,8 +7,11 @@ public class ChangeWorld : MonoBehaviour
     [SerializeField] private List<GameObject> _worldList;
     [SerializeField] private int _currentWorld;
 
+    private SfxController sfxController;
+
     private void Start()
     {
+        sfxController = FindObjectOfType<SfxController>();
         _currentWorld = PlayerPrefs.GetInt("currentWorld", 0);
         OffAllWorld();
         GetCurrentWorld();
@@ -26,6 +29,7 @@ public class ChangeWorld : MonoBehaviour
             _currentWorld++;
         }
         GetCurrentWorld();
+        sfxController.PlayClickClip();
     }
 
     public void PreviousWorld()
@@ -40,6 +44,7 @@ public class ChangeWorld : MonoBehaviour
             _currentWorld--;
         }
         GetCurrentWorld();
+        sfxController.PlayClickClip();
     }
 
     private void GetCurrentWorld()

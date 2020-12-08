@@ -18,6 +18,7 @@ public class PlayerJumping : MonoBehaviour
     public float jumpTime;
     private bool _isJumping;
 
+    private SfxController sfxController;
 
     #region TestRay
     public float MovingForce;
@@ -40,6 +41,8 @@ public class PlayerJumping : MonoBehaviour
 
         coll = GetComponent<BoxCollider2D>();
         LengthOfRay = .65f;
+
+        sfxController = FindObjectOfType<SfxController>();
     }
 
     private void Update()
@@ -63,6 +66,7 @@ public class PlayerJumping : MonoBehaviour
             {
                 //print("Collided With " + HitInfo.collider.gameObject.name);
                 print("Grounded!");
+                //sfxController.PlayGroundedClip();
                 return true;
             }
             Origin += new Vector2(DistanceBetweenRays, 0);
@@ -83,6 +87,7 @@ public class PlayerJumping : MonoBehaviour
             _isJumping = true;
             _jumpTimeCounter = jumpTime;
             _rb.velocity = Vector2.up * _jumpForce;
+            sfxController.PlayJumpClip();
         }
 
         if (Input.GetMouseButton(0) && _isJumping == true)

@@ -15,10 +15,17 @@ public class GameUIPanels : MonoBehaviour
 
     [SerializeField] private List<GameObject> _allPanels;
 
+    private SfxController sfxController;
+
     private void Start()
     {
+        sfxController = FindObjectOfType<SfxController>();
         GameEventManager.PickLevel += OffAllPanels;
-        GetMainMenuPanel();
+
+        //GET MAIN MENU PANEl
+        OffAllPanels();
+        GameEventManager.TriggerAddCoinEvent();
+        _mainMenuPanel.SetActive(true);
     }
 
     private void OffAllPanels()
@@ -34,30 +41,35 @@ public class GameUIPanels : MonoBehaviour
         OffAllPanels();
         GameEventManager.TriggerAddCoinEvent();
         _mainMenuPanel.SetActive(true);
+        sfxController.PlayClickBackClip();
     }
 
     public void GetSettingsPanel()
     {
         OffAllPanels();
         _settingsPanel.SetActive(true);
+        sfxController.PlayClickClip();
     }
     
     public void GetShopPanel()
     {
         OffAllPanels();
         _shopPanel.SetActive(true);
+        sfxController.PlayClickClip();
     }
     
     public void GetLevelListPanel()
     {
         OffAllPanels();
         _levelListPanel.SetActive(true);
+        sfxController.PlayClickClip();
     }
     
     public void GetAchivmentPanel()
     {
         OffAllPanels();
         _achivmentPanel.SetActive(true);
+        sfxController.PlayClickClip();
     }
 
 }

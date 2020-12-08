@@ -8,8 +8,11 @@ public class PickLevel : MonoBehaviour
     [SerializeField] private List<GameObject> _levelsList;
     [SerializeField] private Button[] levelButtons;
 
+    private SfxController sfxController;
+
     private void Start()
     {
+        sfxController = FindObjectOfType<SfxController>();
         int levelReached = PlayerPrefs.GetInt("levelReached", 1);
 
         for (int i = 0; i < levelButtons.Length; i++)
@@ -33,5 +36,6 @@ public class PickLevel : MonoBehaviour
 
         GameManager gm = FindObjectOfType<GameManager>();
         gm._currentLevel = curentLevel;
+        sfxController.PlayClickClip();
     }
 }
