@@ -9,5 +9,6 @@ public class RetryButton : MonoBehaviour
         GameEventManager.TriggerAddCoinEvent();
         GameEventManager.TriggerRetry();
         GameEventManager.TriggerPickLevel();
+        GameEventManager.TriggerActiveCoins();
     }
 }

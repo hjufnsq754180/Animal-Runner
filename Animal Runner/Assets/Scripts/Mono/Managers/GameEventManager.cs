@@ -5,10 +5,14 @@ using UnityEngine;
 public static class GameEventManager
 {
     public delegate void GameEvent();
-    public static event GameEvent GameStart, GameOver, LevelComplite, Retry, AddCoinEvent;
+    public static event GameEvent GameStart, GameOver, LevelComplite, Retry, AddCoinEvent, AddAdCoinEvent;
 
 	public delegate void UiEvent();
 	public static event UiEvent PickLevel;
+
+	public delegate void ActiveCoins();
+	public static event ActiveCoins ActiveCoinsLevel;
+
 
 
 
@@ -56,6 +60,22 @@ public static class GameEventManager
 		if (Retry != null)
 		{
 			Retry();
+		}
+	}
+	
+	public static void TriggerActiveCoins()
+	{
+		if (ActiveCoinsLevel != null)
+		{
+			ActiveCoinsLevel();
+		}
+	}
+	
+	public static void TriggerAddAdCoinEvent()
+	{
+		if (AddAdCoinEvent != null)
+		{
+			AddAdCoinEvent();
 		}
 	}
 }

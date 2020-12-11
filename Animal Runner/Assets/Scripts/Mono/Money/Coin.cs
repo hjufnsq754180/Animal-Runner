@@ -12,6 +12,8 @@ public class Coin : MonoBehaviour
         {
             var a = FindObjectOfType<CoinCountInLive>();
             a.CoinInLevel += coinValue;
+            var coinSfx = FindObjectOfType<SfxController>();
+            coinSfx.PlayCoinClip();
             gameObject.SetActive(false);
         }
     }

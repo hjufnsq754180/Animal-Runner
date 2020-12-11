@@ -11,6 +11,7 @@ public class CoinSystem : MonoBehaviour
     private void Start()
     {
         coinCount = PlayerPrefs.GetInt("coinCount", 0);
+        UpdateUICoin();
     }
 
     public void AddCoin(int coin)

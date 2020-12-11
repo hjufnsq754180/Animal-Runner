@@ -48,7 +48,10 @@ public class PlayerJumping : MonoBehaviour
     private void Update()
     {
         StartPoint = new Vector2(coll.bounds.min.x + margin, transform.position.y);
-        Jump();
+        if (Time.timeScale != 0) //TODO: Чтоб работал только когда игра начата, но лучше через bool
+        {
+            Jump(); 
+        }
     }
 
     bool IsCollidingVertically()
@@ -60,7 +63,7 @@ public class PlayerJumping : MonoBehaviour
         for (i = 0; i < NoOfRays; i++)
         {
             //Draw ray on screen to see visually. Remember visual length is not actual length.
-            Debug.DrawRay(Origin, new Vector2(0, -LengthOfRay), Color.yellow);
+            //Debug.DrawRay(Origin, new Vector2(0, -LengthOfRay), Color.yellow);
             HitInfo = Physics2D.Raycast(Origin, Vector2.down, LengthOfRay, _whatIsGround);
             if (HitInfo.collider != null)
             {

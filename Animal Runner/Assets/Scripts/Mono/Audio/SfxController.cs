@@ -11,6 +11,7 @@ public class SfxController : MonoBehaviour
     [SerializeField] private AudioClip groundedClip;
     [SerializeField] private AudioClip finishedClip;
     [SerializeField] private AudioClip gameOverClip;
+    [SerializeField] private AudioClip coinClip;
 
     public void PlayClickClip()
     {
@@ -30,5 +31,20 @@ public class SfxController : MonoBehaviour
     public void PlayGroundedClip()
     {
         sfxSource.PlayOneShot(groundedClip);
+    }
+    
+    public void PlayWinClip()
+    {
+        sfxSource.PlayOneShot(finishedClip);
+    }
+    
+    public void PlayGameOverClip()
+    {
+        sfxSource.PlayOneShot(gameOverClip);
+    }
+    
+    public void PlayCoinClip()
+    {
+        sfxSource.PlayOneShot(coinClip);
     }
 }

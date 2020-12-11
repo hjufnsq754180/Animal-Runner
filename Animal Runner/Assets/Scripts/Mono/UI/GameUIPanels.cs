@@ -11,7 +11,8 @@ public class GameUIPanels : MonoBehaviour
     [SerializeField] private GameObject _levelComplitePanel;
     [SerializeField] private GameObject _levelListPanel;
     [SerializeField] private GameObject _achivmentPanel;
-    //TODO: панели дневной награды, отключения рекламы
+    [SerializeField] private GameObject _getAdCoinPanel;
+    //TODO: панели дневной награды, отключения рекламы, кнопки выхода
 
     [SerializeField] private List<GameObject> _allPanels;
 
@@ -72,4 +73,29 @@ public class GameUIPanels : MonoBehaviour
         sfxController.PlayClickClip();
     }
 
+    public void GetAdRewardCoin()
+    {
+        //TODO: IF Логика показа рекламы за коин 
+        GameEventManager.TriggerAddAdCoinEvent();
+        OffAllPanels();
+        Debug.LogWarning("Реклама просмотрена!");
+        //_levelListPanel.SetActive(true);
+        _getAdCoinPanel.SetActive(true);
+        sfxController.PlayClickClip();
+    }
+
+    public void GetAdCoinPanel()
+    {
+        OffAllPanels();
+        _levelListPanel.SetActive(true);
+        sfxController.PlayClickClip();
+    }
+
+    public void GetRewardCoin()
+    {
+        GameEventManager.TriggerAddCoinEvent();
+        OffAllPanels();
+        _levelListPanel.SetActive(true);
+        sfxController.PlayClickClip();
+    }
 }

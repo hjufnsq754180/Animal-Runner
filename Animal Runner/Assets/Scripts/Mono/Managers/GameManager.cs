@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private GameObject _gameOverPanel;
 	[SerializeField] private GameObject _levelComplitePanel;
 
+	private SfxController _sfxController;
+
 	public int _currentLevel;
 
 	void Start()
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour
 		GameEventManager.Retry += Retry;
 
 		_playerController = FindObjectOfType<PlayerController>();
+		_sfxController = FindObjectOfType<SfxController>();
 		Time.timeScale = 0;
 	}
 
@@ -34,6 +37,7 @@ public class GameManager : MonoBehaviour
 	private void LevelComplite()
 	{
 		print("Уровень пройден");
+		_sfxController.PlayWinClip();
 		_levelComplitePanel.SetActive(true);
 		PlayerPrefs.SetInt("levelReached", _currentLevel + 1);
 		Time.timeScale = 0;
@@ -42,6 +46,7 @@ public class GameManager : MonoBehaviour
 	private void GameOver()
 	{
 		print("Игра закончилась");
+		_sfxController.PlayGameOverClip();
 		_gameOverPanel.SetActive(true);
 		Time.timeScale = 0;
 	}
@@ -49,6 +54,7 @@ public class GameManager : MonoBehaviour
 	private void Retry()
 	{
 		Time.timeScale = 1;
+		_sfxController.PlayClickClip();
 		_playerController.gameObject.transform.position = _startPoint.transform.position;
 	}
 }
