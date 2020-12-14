@@ -27,7 +27,16 @@ public class CoinCountInLive : MonoBehaviour
         GameEventManager.AddCoinEvent += ChangeCoin;
         GameEventManager.LevelComplite += SetWinCoin;
         GameEventManager.AddAdCoinEvent += AdChangeCoin;
+        GameEventManager.AdRewardCoins += AdRewardCoins;
         coinSystem = GetComponent<CoinSystem>();
+    }
+
+    private void AdRewardCoins()
+    {
+        //TODO: изменение награды за получение коинов при просмотре реламы в магазине
+        coinSystem.AddCoin(400);
+        coinSystem.UpdateUICoin();
+        Debug.LogWarning("Реклама просмотрена!");
     }
 
     private void AdChangeCoin()

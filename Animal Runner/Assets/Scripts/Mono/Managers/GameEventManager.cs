@@ -13,7 +13,11 @@ public static class GameEventManager
 	public delegate void ActiveCoins();
 	public static event ActiveCoins ActiveCoinsLevel;
 
+	public delegate void AdRewardCoin();
+	public static event AdRewardCoin AdRewardCoins;
 
+	public delegate void UpdateRichLevel();
+	public static event UpdateRichLevel UpdateLevelUI;
 
 
 	public static void TriggerGameStart()
@@ -76,6 +80,22 @@ public static class GameEventManager
 		if (AddAdCoinEvent != null)
 		{
 			AddAdCoinEvent();
+		}
+	}
+	
+	public static void TriggerAddAdRewardCoinsEvent()
+	{
+		if (AdRewardCoins != null)
+		{
+			AdRewardCoins();
+		}
+	}
+	
+	public static void TriggerUpdateUILevelEvent()
+	{
+		if (UpdateLevelUI != null)
+		{
+			UpdateLevelUI();
 		}
 	}
 }

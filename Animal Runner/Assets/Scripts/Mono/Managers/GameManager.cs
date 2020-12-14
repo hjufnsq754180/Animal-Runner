@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] private GameObject _gameOverPanel;
 	[SerializeField] private GameObject _levelComplitePanel;
+	[SerializeField] private GameObject _coinPanel;
 
 	private SfxController _sfxController;
 
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
 		print("Игра началась");
 		Time.timeScale = 1;
 		_playerController.gameObject.transform.position = _startPoint.transform.position;
+		_coinPanel.SetActive(false);
 	}
 
 	private void LevelComplite()
@@ -40,6 +42,8 @@ public class GameManager : MonoBehaviour
 		_sfxController.PlayWinClip();
 		_levelComplitePanel.SetActive(true);
 		PlayerPrefs.SetInt("levelReached", _currentLevel + 1);
+		PlayerPrefs.Save();
+		GameEventManager.TriggerUpdateUILevelEvent();
 		Time.timeScale = 0;
 	}
 
